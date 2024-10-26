@@ -14,6 +14,8 @@ spinOutput.style.backgroundColor = 'rgb(255, 255, 255)';
 spinOutput.style.fontSize = '1rem';
 spinOutput.style.zIndex = '100';
 
+fade = window.setTimeout(function() {}, 0);
+
 // Functions
 
 function loadSpin() {
@@ -29,8 +31,8 @@ function loadSpin() {
   spinOutput.innerHTML = 'Spin Ready, press "' + trigger + '" (t = ' + time + ')';
   spinOutput.style.transition = 'none';
   spinOutput.style.opacity = '1';
-  if(fade) clearTimeout(fade);
-  fade = window.setTimeout(fadeOutput, 5000);
+  clearTimeout(fade);
+  fade = window.setTimeout(fadeOutput, 3000);
   
 }
 
