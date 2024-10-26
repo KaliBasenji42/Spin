@@ -5,6 +5,14 @@ let run = false;
 let trigger = '@';
 let time = 5;
 
+const spinOutput = document.createElement('div');
+document.body.appendChild(spinOutput);
+spinOutput.style.position = 'fixed';
+spinOutput.style.top = '0';
+spinOutput.style.left = '0';
+spinOutput.style.backgroundColor = 'rgb(255, 255, 255)';
+spinOutput.style.fontSize = '2rem';
+
 // Functions
 
 function loadSpin() {
@@ -13,9 +21,15 @@ function loadSpin() {
     elems[i].style.transition = 'rotate ' + time + 's linear';
   }
   
-  console.log('Spin Ready, press "' + trigger + '" (t = ' + time + ')');
-  
   run = true;
+  
+  // Output
+  
+  spinOutput.innerHTML = 'Spin Ready, press "' + trigger + '" (t = ' + time + ')';
+  spinOutput.style.transition = 'none';
+  spinOutput.style.opacity = '1';
+  window.setTimeout(flashOutput, 1000);
+  
 }
 
 function animate() {
@@ -41,11 +55,19 @@ document.addEventListener('keypress', function() {
     if(event.key == trigger && run) spin();
 });
 
-// Send Events
+function flashOutput() {
+  spinOutput.style.transition = 'opacity 2s';
+  spinOutput.style.opacity = '0';
+}
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log('Spin msg: ' + request.action);
+// Events
 
+//document.addEventListener('DOMContentLoaded', function() {
+
+//})
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  
   if(request.action === 'spin' && run) spin();
   
   if(request.action === 'load') loadSpin();
