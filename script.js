@@ -29,7 +29,8 @@ function loadSpin() {
   spinOutput.innerHTML = 'Spin Ready, press "' + trigger + '" (t = ' + time + ')';
   spinOutput.style.transition = 'none';
   spinOutput.style.opacity = '1';
-  window.setTimeout(flashOutput, 5000);
+  if(fade) clearTimeout(fade);
+  fade = window.setTimeout(fadeOutput, 5000);
   
 }
 
@@ -56,16 +57,12 @@ document.addEventListener('keypress', function() {
     if(event.key == trigger && run) spin();
 });
 
-function flashOutput() {
+function fadeOutput() {
   spinOutput.style.transition = 'opacity 2s';
   spinOutput.style.opacity = '0';
 }
 
 // Events
-
-//document.addEventListener('DOMContentLoaded', function() {
-
-//})
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   
