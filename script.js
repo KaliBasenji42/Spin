@@ -28,7 +28,7 @@ function loadSpin() {
   spinOutput.innerHTML = 'Spin Ready, press "' + trigger + '" (t = ' + time + ')';
   spinOutput.style.transition = 'none';
   spinOutput.style.opacity = '1';
-  window.setTimeout(flashOutput, 1000);
+  window.setTimeout(flashOutput, 5000);
   
 }
 
