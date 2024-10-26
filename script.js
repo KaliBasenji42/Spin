@@ -11,7 +11,8 @@ spinOutput.style.position = 'fixed';
 spinOutput.style.top = '0';
 spinOutput.style.left = '0';
 spinOutput.style.backgroundColor = 'rgb(255, 255, 255)';
-spinOutput.style.fontSize = '2rem';
+spinOutput.style.fontSize = '1rem';
+spinOutput.style.zIndex = '100';
 
 // Functions
 
