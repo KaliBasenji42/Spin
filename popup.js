@@ -8,7 +8,7 @@ function send(msg) {
   chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
     chrome.tabs.sendMessage(tabs[0].id, {action: msg});
   });
-  output.innerHTML = 'Sent: ' + msg;
+  output.innerHTML += 'Sent: ' + msg + '<br>';
   output.style.transition = 'none';
   output.style.backgroundColor = 'rgb(0,192,0)';
   window.setTimeout(flashOutput, 10);
@@ -40,4 +40,8 @@ document.getElementById('spin').addEventListener('click', () => {
 
 document.getElementById('load').addEventListener('click', () => {
   send('load');
+});
+
+document.getElementById('clear').addEventListener('click', () => {
+  output.innerHTML = '';
 });
