@@ -8,9 +8,13 @@ function send(msg) {
   chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
     chrome.tabs.sendMessage(tabs[0].id, {action: msg});
   });
-  output.innerHTML = 'msg' + msg;
-  output.style.transition = 'background-color 0s';
+  output.innerHTML = 'Sent: ' + msg;
+  output.style.transition = 'none';
   output.style.backgroundColor = 'rgb(0,192,0)';
+  window.setTimeout(flashOutput, 10);
+}
+
+function flashOutput() {
   output.style.transition = 'background-color 1s';
   output.style.backgroundColor = 'rgb(255,255,255)';
 }
