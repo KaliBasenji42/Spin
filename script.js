@@ -11,6 +11,7 @@ spinOutput.style.position = 'fixed';
 spinOutput.style.top = '0';
 spinOutput.style.left = '0';
 spinOutput.style.backgroundColor = 'rgb(255, 255, 255)';
+spinOutput.style.color = 'rgb(0,0,0)';
 spinOutput.style.fontSize = '1rem';
 spinOutput.style.zIndex = '100';
 
@@ -67,19 +68,22 @@ function fadeOutput() {
 // Events
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  
-  if(request.action === 'spin' && run) spin();
-  
-  if(request.action === 'load') loadSpin();
-  
-  if(request.action.slice(0,1) === 't' && request.action.length > 1) {
-    time = parseFloat(request.action.slice(1));
-    loadSpin();
+  try {
+    if(request.action === 'spin' && run) spin();
+    
+    if(request.action === 'load') loadSpin();
+    
+    if(request.action.slice(0,1) === 't' && request.action.length > 1) {
+      time = parseFloat(request.action.slice(1));
+      loadSpin();
+    }
+    
+    if(request.action.slice(0,1) === 'e' && request.action.length > 1) {
+      trigger = request.action.slice(1,2);
+      loadSpin();
+    }
   }
-  
-  if(request.action.slice(0,1) === 'e' && request.action.length > 1) {
-    trigger = request.action.slice(1,2);
-    loadSpin();
+  catch (error) {
+    console.error('Error processing input:', error);
   }
-  
 });
