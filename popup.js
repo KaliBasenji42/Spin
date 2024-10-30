@@ -1,6 +1,8 @@
 // Variables and Constants
 
-let output = document.getElementById("output");
+let output = document.getElementById('output');
+
+let logCheck = document.getElementById('log');
 
 // Functions
 
@@ -8,10 +10,16 @@ function send(msg) {
   chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
     chrome.tabs.sendMessage(tabs[0].id, {action: msg});
   });
-  output.innerHTML += 'Sent: ' + msg + '<br>';
-  output.style.transition = 'none';
-  output.style.backgroundColor = 'rgb(0,192,0)';
-  window.setTimeout(flashOutput, 10);
+
+  if(logCheck.checked) {
+    
+    output.innerHTML += 'Sent: ' + msg + '<br>';
+    output.style.transition = 'none';
+    output.style.backgroundColor = 'rgb(0,192,0)';
+    window.setTimeout(flashOutput, 10);
+    
+  }
+  
 }
 
 function flashOutput() {
@@ -19,7 +27,7 @@ function flashOutput() {
   output.style.backgroundColor = 'rgb(255,255,255)';
 }
 
-// Form Send
+// Events
 
 document.getElementById("form").addEventListener("submit", function (event) {
   
@@ -32,8 +40,6 @@ document.getElementById("form").addEventListener("submit", function (event) {
   
 });
 
-// Send Events
-
 document.getElementById('spin').addEventListener('click', () => {
   send('spin');
 });
@@ -45,3 +51,5 @@ document.getElementById('load').addEventListener('click', () => {
 document.getElementById('clear').addEventListener('click', () => {
   output.innerHTML = '';
 });
+
+document.getElementById('log')
